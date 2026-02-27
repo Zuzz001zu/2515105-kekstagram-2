@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Zoia G](https://up.htmlacademy.ru/javascript-individual/2/user/2515105).
-* Наставник: `Неизвестно`.
+- Студент: [Zoia G](https://up.htmlacademy.ru/javascript-individual/2/user/2515105).
+- Наставник: Денис Лопатин.
 
 ---
 
