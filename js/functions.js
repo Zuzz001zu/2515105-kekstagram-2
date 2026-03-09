@@ -12,10 +12,10 @@ function polidrome (theLine) {
   const string = theLine.replaceAll(' ', '');
   const str = string.toLowerCase();
   let str1 = '';
-  for (let i = str.length-1; i>=0; i--) {
-    str1+=str.at(i);
+  for (let i = str.length - 1; i >= 0; i--) {
+    str1 += str.at(i);
   }
-  return (str === str1) ? true : false;
+  return str === str1;
 }
 
 polidrome('топот');
