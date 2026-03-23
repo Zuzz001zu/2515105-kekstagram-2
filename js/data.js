@@ -2,7 +2,7 @@ import { getRandomInt } from './util.js';
 
 function createCommentIdGenerator() {
   let lastId = 0;
-  return function() {
+  return () => {
     lastId++;
     return lastId;
   };
@@ -55,6 +55,7 @@ function generateRandomMessage() {
 
 function generateComments(count) {
   const comments = [];
+
   for (let i = 0; i < count; i++) {
     comments.push({
       id: getNextCommentId(),
@@ -63,6 +64,7 @@ function generateComments(count) {
       name: NAMES[getRandomInt(0, NAMES.length - 1)]
     });
   }
+
   return comments;
 }
 
