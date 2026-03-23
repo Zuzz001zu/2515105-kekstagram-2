@@ -2,6 +2,7 @@ import { getRandomInt } from './util.js';
 
 function createCommentIdGenerator() {
   let lastId = 0;
+  
   return () => {
     lastId++;
     return lastId;
