@@ -8,6 +8,7 @@ function createThumbnail(photo) {
   thumbnail.querySelector('.picture__img').alt = photo.description;
   thumbnail.querySelector('.picture__likes').textContent = photo.likes;
   thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+  thumbnail.querySelector('.picture').dataset.photoId = photo.id;
 
   return thumbnail;
 }
