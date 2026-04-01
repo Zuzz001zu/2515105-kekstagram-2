@@ -15,18 +15,7 @@ const validateHashtags = (value) => {
     return false;
   }
 
-  return hashtags.every((hashtag) => {
-    if (!hashtag.startsWith('#')) {
-      return false;
-    }
-
-    const regex = /^#[a-zа-яё0-9]{1,19}$/i;
-    if (!regex.test(hashtag)) {
-      return false;
-    }
-
-    return true;
-  });
+  return hashtags.every((hashtag) => hashtag.startsWith('#') && /^#[a-zа-яё0-9]{1,19}$/i.test(hashtag));
 };
 
 const validateHashtagsUnique = (value) => {
@@ -40,9 +29,7 @@ const validateHashtagsUnique = (value) => {
   return hashtags.length === uniqueHashtags.size;
 };
 
-const validateDescription = (value) => {
-  return value.length <= 140;
-};
+const validateDescription = (value) => value.length <= 140;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
