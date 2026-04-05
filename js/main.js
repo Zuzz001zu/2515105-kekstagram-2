@@ -1,6 +1,8 @@
 import { generatePhotos } from './data.js';
 import { renderThumbnails } from './thumbnail.js';
 import { openBigPicture } from './big-picture.js';
+import './upload-form.js';
+import './validation.js';
 
 const photos = generatePhotos();
 
@@ -22,4 +24,3 @@ picturesContainer.addEventListener('click', (evt) => {
     openBigPicture(photo);
   }
 });
-
