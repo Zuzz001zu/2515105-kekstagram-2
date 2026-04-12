@@ -1,5 +1,7 @@
 import { pristine } from './validation.js';
 import 'vendor/nouislider/nouislider.js';
+import { sendPhoto } from './api.js';
+import { showSuccessMessage, showErrorMessage } from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
@@ -7,6 +9,7 @@ const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('#upload-cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
@@ -201,9 +204,7 @@ const onEffectChange = (evt) => {
 const resetFormState = () => {
   currentScale = DEFAULT_SCALE;
   updateScale();
-
   resetEffect();
-
   previewImage.style.transform = 'scale(1)';
 };
 
@@ -262,15 +263,37 @@ uploadFile.addEventListener('change', () => {
 
 uploadCancel.addEventListener('click', closeUploadForm);
 
-uploadForm.method = 'post';
-uploadForm.enctype = 'multipart/form-data';
-uploadForm.action = 'https://25.javascript.pages.academy/kekstagram';
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикация...';
+};
 
-uploadForm.addEventListener('submit', (evt) => {
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+uploadForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+
   const isValid = pristine.validate();
 
   if (!isValid) {
-    evt.preventDefault();
+    return;
+  }
+
+  const formData = new FormData(uploadForm);
+
+  blockSubmitButton();
+
+  try {
+    await sendPhoto(formData);
+    closeUploadForm();
+    showSuccessMessage();
+  } catch (error) {
+    showErrorMessage(error.message);
+  } finally {
+    unblockSubmitButton();
   }
 });
 
