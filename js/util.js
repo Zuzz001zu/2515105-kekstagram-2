@@ -68,3 +68,4 @@ export const showErrorMessage = (message) => {
   });
   document.addEventListener('keydown', onErrorEscKeydown);
 };
+
