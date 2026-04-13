@@ -1,5 +1,3 @@
-const picturesContainer = document.querySelector('.pictures');
-
 function createThumbnail(photo) {
   const template = document.querySelector('#picture');
   const thumbnail = template.content.cloneNode(true);
@@ -15,6 +13,7 @@ function createThumbnail(photo) {
 
 export function renderThumbnails(photos) {
   const fragment = document.createDocumentFragment();
+  const picturesContainer = document.querySelector('.pictures');
 
   photos.forEach((photo) => {
     fragment.appendChild(createThumbnail(photo));
@@ -22,3 +21,4 @@ export function renderThumbnails(photos) {
 
   picturesContainer.appendChild(fragment);
 }
+
