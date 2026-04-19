@@ -5,73 +5,73 @@ export const getRandomInt = (min, max) => {
 };
 
 export const showSuccessMessage = () => {
-  const successTemplate = document.querySelector('#success');
-  const successElement = successTemplate.content.cloneNode(true);
-  const successMessage = successElement.querySelector('.success');
-  const successButton = successMessage.querySelector('.success__button');
+  const successTemplateElement = document.querySelector('#success');
+  const successElement = successTemplateElement.content.cloneNode(true);
+  const successMessageElement = successElement.querySelector('.success');
+  const successButtonElement = successMessageElement.querySelector('.success__button');
 
-  document.body.appendChild(successMessage);
+  document.body.appendChild(successMessageElement);
 
-  const closeSuccessMessage = () => {
-    successMessage.remove();
+  const onCloseSuccessMessage = () => {
+    successMessageElement.remove();
     document.removeEventListener('keydown', onSuccessEscKeydown);
   };
 
   function onSuccessEscKeydown(evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      closeSuccessMessage();
+      onCloseSuccessMessage();
     }
   }
 
-  successButton.addEventListener('click', closeSuccessMessage);
-  successMessage.addEventListener('click', (evt) => {
-    if (evt.target === successMessage) {
-      closeSuccessMessage();
+  successButtonElement.addEventListener('click', onCloseSuccessMessage);
+  successMessageElement.addEventListener('click', (evt) => {
+    if (evt.target === successMessageElement) {
+      onCloseSuccessMessage();
     }
   });
   document.addEventListener('keydown', onSuccessEscKeydown);
 };
 
 export const showErrorMessage = (message) => {
-  const errorTemplate = document.querySelector('#error');
-  const errorElement = errorTemplate.content.cloneNode(true);
-  const errorMessage = errorElement.querySelector('.error');
-  const errorButton = errorMessage.querySelector('.error__button');
+  const errorTemplateElement = document.querySelector('#error');
+  const errorElement = errorTemplateElement.content.cloneNode(true);
+  const errorMessageElement = errorElement.querySelector('.error');
+  const errorButtonElement = errorMessageElement.querySelector('.error__button');
 
   if (message) {
-    const errorTitle = errorMessage.querySelector('.error__title');
-    if (errorTitle) {
-      errorTitle.textContent = message;
+    const errorTitleElement = errorMessageElement.querySelector('.error__title');
+    if (errorTitleElement) {
+      errorTitleElement.textContent = message;
     }
   }
 
-  document.body.appendChild(errorMessage);
+  document.body.appendChild(errorMessageElement);
 
-  const closeErrorMessage = () => {
-    errorMessage.remove();
+  const onCloseErrorMessage = () => {
+    errorMessageElement.remove();
     document.removeEventListener('keydown', onErrorEscKeydown);
   };
 
   function onErrorEscKeydown(evt) {
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      closeErrorMessage();
+      onCloseErrorMessage();
     }
   }
 
-  errorButton.addEventListener('click', closeErrorMessage);
-  errorMessage.addEventListener('click', (evt) => {
-    if (evt.target === errorMessage) {
-      closeErrorMessage();
+  errorButtonElement.addEventListener('click', onCloseErrorMessage);
+  errorMessageElement.addEventListener('click', (evt) => {
+    if (evt.target === errorMessageElement) {
+      onCloseErrorMessage();
     }
   });
   document.addEventListener('keydown', onErrorEscKeydown);
 };
 
 export const showDataErrorMessage = () => {
-  const template = document.querySelector('#data-error');
-  const element = template.content.cloneNode(true);
+  const templateElement = document.querySelector('#data-error');
+  const element = templateElement.content.cloneNode(true);
   document.body.appendChild(element);
 
   setTimeout(() => {
