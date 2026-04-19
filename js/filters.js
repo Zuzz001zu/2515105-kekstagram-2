@@ -6,12 +6,12 @@ let currentPhotos = [];
 let onFilterChangeCallback = null;
 
 const getRandomPhotos = (photos) => {
-  const shuffled = [...photos];
-  for (let i = shuffled.length - 1; i > 0; i--) {
+  const photosCopy = [...photos];
+  for (let i = photosCopy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    [photosCopy[i], photosCopy[j]] = [photosCopy[j], photosCopy[i]];
   }
-  return shuffled.slice(0, RANDOM_PHOTOS_COUNT);
+  return photosCopy.slice(0, RANDOM_PHOTOS_COUNT);
 };
 
 const getDiscussedPhotos = (photos) => [...photos].sort((a, b) => b.comments.length - a.comments.length);
@@ -43,20 +43,18 @@ const updatePhotosDebounced = debounce(() => {
 }, DEBOUNCE_DELAY);
 
 const onFilterClick = (evt) => {
-  const button = evt.target.closest('.img-filters__button');
-  if (!button || button.id === currentFilter) {
+  const buttonElement = evt.target.closest('.img-filters__button');
+  if (!buttonElement || buttonElement.id === currentFilter) {
     return;
   }
 
-  const filterButtons = document.querySelectorAll('.img-filters__button');
-
-  filterButtons.forEach((btn) => {
+  const filterButtonElements = document.querySelectorAll('.img-filters__button');
+  filterButtonElements.forEach((btn) => {
     btn.classList.remove('img-filters__button--active');
   });
 
-  button.classList.add('img-filters__button--active');
-
-  currentFilter = button.id;
+  buttonElement.classList.add('img-filters__button--active');
+  currentFilter = buttonElement.id;
 
   updatePhotosDebounced();
 };
@@ -65,20 +63,12 @@ export const initFilters = (photos, renderCallback) => {
   currentPhotos = photos;
   onFilterChangeCallback = renderCallback;
 
-  const filtersContainer = document.querySelector('.img-filters');
+  const filtersContainerElement = document.querySelector('.img-filters');
 
-  if (!filtersContainer) {
+  if (!filtersContainerElement) {
     return;
   }
 
-  filtersContainer.classList.remove('img-filters--inactive');
-  filtersContainer.addEventListener('click', onFilterClick);
+  filtersContainerElement.classList.remove('img-filters--inactive');
+  filtersContainerElement.addEventListener('click', onFilterClick);
 };
-
-export const resetFilter = () => {
-  const defaultButton = document.querySelector('#filter-default');
-  if (defaultButton && currentFilter !== 'filter-default') {
-    defaultButton.click();
-  }
-};
-

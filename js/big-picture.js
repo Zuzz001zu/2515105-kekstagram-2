@@ -15,26 +15,26 @@ let currentComments = [];
 let shownCount = 0;
 
 const createCommentElement = ({ avatar, name, message }) => {
-  const li = document.createElement('li');
-  li.classList.add('social__comment');
+  const liElement = document.createElement('li');
+  liElement.classList.add('social__comment');
 
-  const img = document.createElement('img');
-  img.classList.add('social__picture');
-  img.src = avatar;
-  img.alt = name;
-  img.width = 35;
-  img.height = 35;
+  const imgElement = document.createElement('img');
+  imgElement.classList.add('social__picture');
+  imgElement.src = avatar;
+  imgElement.alt = name;
+  imgElement.width = 35;
+  imgElement.height = 35;
 
-  const p = document.createElement('p');
-  p.classList.add('social__text');
-  p.textContent = message;
+  const pElement = document.createElement('p');
+  pElement.classList.add('social__text');
+  pElement.textContent = message;
 
-  li.append(img, p);
+  liElement.append(imgElement, pElement);
 
-  return li;
+  return liElement;
 };
 
-const renderNextComments = () => {
+const onLoadNextComments = () => {
   const nextComments = currentComments.slice(shownCount, shownCount + COMMENTS_PER_PAGE);
 
   const fragment = document.createDocumentFragment();
@@ -57,10 +57,10 @@ const renderComments = (comments) => {
   commentsListElement.innerHTML = '';
   commentTotalCountElement.textContent = comments.length;
 
-  renderNextComments();
+  onLoadNextComments();
 };
 
-const closeBigPicture = () => {
+const onCloseBigPicture = () => {
   bigPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -69,7 +69,7 @@ const closeBigPicture = () => {
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeBigPicture();
+    onCloseBigPicture();
   }
 }
 
@@ -81,14 +81,13 @@ const openBigPicture = (photo) => {
   renderComments(photo.comments);
 
   commentCountElement.classList.remove('hidden');
-
   bigPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-commentsLoaderElement.addEventListener('click', renderNextComments);
-closeButtonElement.addEventListener('click', closeBigPicture);
+commentsLoaderElement.addEventListener('click', onLoadNextComments);
+closeButtonElement.addEventListener('click', onCloseBigPicture);
 
 export { openBigPicture };

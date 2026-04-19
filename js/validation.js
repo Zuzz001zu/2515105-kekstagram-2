@@ -1,9 +1,9 @@
 import '../vendor/pristine/pristine.min.js';
 
 const Pristine = window.Pristine;
-const form = document.querySelector('.img-upload__form');
-const hashtagsInput = form.querySelector('.text__hashtags');
-const descriptionInput = form.querySelector('.text__description');
+const formElement = document.querySelector('.img-upload__form');
+const hashtagsInputElement = formElement.querySelector('.text__hashtags');
+const descriptionInputElement = formElement.querySelector('.text__description');
 
 const validateHashtags = (value) => {
   if (value.trim() === '') {
@@ -32,36 +32,36 @@ const validateHashtagsUnique = (value) => {
 
 const validateDescription = (value) => value.length <= 140;
 
-const pristine = new Pristine(form, {
+const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'text__error',
 });
 
 pristine.addValidator(
-  hashtagsInput,
+  hashtagsInputElement,
   validateHashtags,
   'Некорректный хэштег. Хэштег должен начинаться с #, содержать только буквы и цифры, не более 20 символов. Максимум 5 хэштегов.'
 );
 
 pristine.addValidator(
-  hashtagsInput,
+  hashtagsInputElement,
   validateHashtagsUnique,
   'Хэштеги не должны повторяться'
 );
 
 pristine.addValidator(
-  descriptionInput,
+  descriptionInputElement,
   validateDescription,
   'Комментарий не должен превышать 140 символов'
 );
 
-hashtagsInput.addEventListener('input', () => {
-  pristine.validate(hashtagsInput);
+hashtagsInputElement.addEventListener('input', () => {
+  pristine.validate(hashtagsInputElement);
 });
 
-descriptionInput.addEventListener('input', () => {
-  pristine.validate(descriptionInput);
+descriptionInputElement.addEventListener('input', () => {
+  pristine.validate(descriptionInputElement);
 });
 
 export { pristine };
