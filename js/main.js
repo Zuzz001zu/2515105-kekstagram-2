@@ -2,6 +2,7 @@ import { getPhotos } from './api.js';
 import { renderThumbnails } from './thumbnail.js';
 import { openBigPicture } from './big-picture.js';
 import { initFilters } from './filters.js';
+import { initAiHashtags } from './ai-hashtags.js';
 import './upload-form.js';
 import './validation.js';
 import { showDataErrorMessage } from './util.js';
@@ -32,6 +33,7 @@ const loadAndRenderPhotos = async () => {
 };
 
 loadAndRenderPhotos();
+initAiHashtags();
 
 picturesContainerElement.addEventListener('click', (evt) => {
   const thumbnailElement = evt.target.closest('.picture[data-photo-id]');
@@ -47,4 +49,3 @@ picturesContainerElement.addEventListener('click', (evt) => {
     openBigPicture(photo);
   }
 });
-
